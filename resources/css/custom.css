@@ -1,0 +1,227 @@
+.mr-10{
+    margin-right: 10px !important;
+}
+.progress-panel{
+    padding-top: 20px;
+}
+#progressbar {
+    margin-bottom: 30px;
+    overflow: hidden;
+    color: lightgrey;
+    padding-left: 0;
+}
+
+#progressbar .active {
+    color: #009ef7;
+}
+
+#progressbar li {
+    list-style-type: none;
+    font-size: 15px;
+    width: 25%;
+    float: left;
+    position: relative;
+    font-weight: 400;
+    text-align: center;
+    z-index: 2;
+}
+
+#progressbar .personal_detail:before {
+    font-family: FontAwesome;
+    content: "\f007"
+}
+
+#progressbar .company_detail:before {
+    font-family: FontAwesome;
+    content: "\f0f2"
+}
+
+#progressbar .financial_detail:before {
+    font-family: FontAwesome;
+    content: "\f0d6"
+}
+
+#progressbar .bank_detail:before {
+    font-family: FontAwesome;
+    content: "\f0f7"
+}
+#progressbar .document_detail:before {
+    font-family: FontAwesome;
+    content: "\f0c5"
+}
+
+#progressbar li:before {
+    width: 70px;
+    height: 70px;
+    line-height: 65px;
+    display: block;
+    font-size: 32px;
+    color: #ffffff;
+    background: lightgray;
+    border-radius: 56%;
+    margin: 0 auto 15px auto;
+    padding: 2px;
+}
+
+#progressbar li:after {
+    content: '';
+    width: 100%;
+    height: 6px;
+    background: lightgray;
+    position: absolute;
+    left: 0%;
+    top: 35px;
+    z-index: -1;
+}
+
+
+#progressbar li.personal_detail:after {
+    content: '';
+    width: 50%;
+    height: 6px;
+    background: lightgray;
+    position: absolute;
+    top: 35px;
+    left: 50%;
+    z-index: -1;
+}
+
+#progressbar li.document_detail:after {
+    content: '';
+    width: 50%;
+    height: 6px;
+    background: lightgray;
+    position: absolute;
+    top: 35px;
+    right: 50%;
+    z-index: -1;
+}
+
+#progressbar li.active:before,
+#progressbar li.active:after {
+    background: #009ef7
+}
+
+.progress {
+    height: 20px
+}
+
+.progress-bar {
+    background-color: #009ef7;
+}
+#progressbar li.onProgress:before, #progressbar li.onProgress:after {
+    background: #ffc107;
+}
+.progress {
+    height: 0;
+}
+label:not(.form-check-label):not(.custom-file-label) {
+    font-weight: 400;
+}
+.form-container {
+    border: 1px solid #eff2f5!important;
+    margin: 20px;
+}
+.custom-file-label.col-form-label-sm {
+    padding-top: .25rem !important;
+    padding-bottom: .25rem !important;
+    font-size: .875rem !important;
+    height: calc(1.5em + .75rem + 0px) !important;
+}
+.card-footer {
+    padding: .75rem 1.25rem;
+    background-color: transparent!important;
+    border-top: none!important;
+}
+.title_decoration{
+    color: #007bff!important;
+}
+.image-preview{
+    border: 5px solid #ccc;
+    border-radius: 10px;
+    margin-top: 20px;
+    width: 120px;
+    height:  120px;
+}
+
+/*added on 25-09-2020*/
+.customDList {
+    font-size: 13px;
+}
+.customDList dd {
+    margin-bottom: 0;
+}
+.btnGroup .btn-group .btn {
+    opacity: .2;
+}
+.btnGroup .btn-group .btn.active {
+    opacity: 1;
+}
+.avatar-upload {
+    position: relative;
+    max-width: 130px;
+    /* margin: 50px auto; */
+}
+  .avatar-upload .avatar-edit {
+    position: absolute;
+    right: 5px;
+    z-index: 1;
+    top: -3px;
+}
+  .avatar-upload .avatar-edit input {
+    display: none;
+  }
+  .avatar-upload .avatar-edit input + label {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 0;
+    border-radius: 100%;
+    background: #FFFFFF;
+    border: 1px solid transparent;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+    font-weight: normal;
+    transition: all 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+  .avatar-upload .avatar-edit input + label:hover {
+    background: #f1f1f1;
+    border-color: #d6d6d6;
+  }
+  
+  .avatar-upload .avatar-preview {
+    width: 90px;
+    height: 90px;
+    position: relative;
+    border-radius: 100%;
+    border: 3px solid #F8F8F8;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+}
+  .avatar-upload .avatar-preview > img {
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .custom-user-card .widget-user-header {
+    height: 106px;
+}
+.custom-user-card .widget-user-image {
+    top: 57px;
+}
+.editDetailForm .form-control:disabled{
+    background-color: transparent;
+    border: none !important;
+    -webkit-appearance: none;
+}
+.ck-editor__editable_inline {
+    min-height: 400px;
+}
+.dataprocessing { position: fixed;top: 0;left: 0; width: 100%;height: 100%;background-size: cover;background-position: center center;z-index: 10000;background-color: rgba(0,0,0,0.4);}
+.loading-icon{ position: fixed; top: 50%;left: 50%; color: #000; font-size: 40px;font-weight: bold; }
