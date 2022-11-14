@@ -57,9 +57,8 @@ class EmployeeControllers extends Controller
         //     $inputs['photo'] = 'nullable|sometimes|image|mimes:jpeg,bmp,png,jpg,svg';
 
         // }
-
+        
         $validator = Validator::make($request->all(),$inputs);
-
         if ($validator->fails()) {
 
           $validationError = [];
@@ -77,17 +76,30 @@ class EmployeeControllers extends Controller
         if(!empty(request('name'))){
             $userId = request('user_id');
         }
-        $userData = User::updateOrCreate([
-                        'id'   => $userId,
-                    ],[
-                        'name' => request('name'),
-                        'email' => request('email'),
-                        'phone_number' => request('contact_number_1'),
-                        'password' => bcrypt('adfs@!dffs'),
-                        'role_id' => 3,
-                    ]);
-        if(!empty($userId)){
+        if(!empty($userId) && (request('is_details_update') != 1)){
+            
+            $userData = User::updateOrCreate([
+                'id'   => $userId,
+            ],[
+                'name' => request('name'),
+                'email' => request('email'),
+                'phone_number' => request('contact_number_1'),
+                'password' => bcrypt('adfs@!dffs'),
+                'role_id' => 3,
+            ]);
             Password::sendResetLink($request->only('email'));
+
+        }elseif(request('is_details_update') == 1){
+           
+            $userData = User::updateOrCreate([
+                'id'   => $userId,
+            ],[
+                'name' => request('name'),
+                'email' => request('email'),
+                'phone_number' => request('contact_number_1'),
+                'role_id' => 3,
+            ]);
+
         }
         
         if(!empty($userData) && !empty($userData->id)){
@@ -113,8 +125,10 @@ class EmployeeControllers extends Controller
             $empPerData = EmployeePersonalDetail::updateOrCreate([
                               'user_id'   => $userData->id,
                           ],$employeeRecord);
-            $this->checkAndUpdateEmpFormStep($userData->id,1);
-
+                          
+            if(request('is_details_update') != 1){
+                $this->checkAndUpdateEmpFormStep($userData->id,1);
+            }
         }
        
             
@@ -166,7 +180,9 @@ class EmployeeControllers extends Controller
                             'status' => (!empty(request('status'))?request('status'):'enable'),
                             
                         ]);
-            $this->checkAndUpdateEmpFormStep(request('user_id'),2);
+            if(request('is_details_update') != 1){
+                $this->checkAndUpdateEmpFormStep(request('user_id'),2);
+            }
             return json_encode(array('code'=>'success','data'=>$empCompanyData));
            
         }else{
@@ -205,16 +221,22 @@ class EmployeeControllers extends Controller
           return json_encode(array('code'=>'error_validate','errors'=>$validator->errors()));
           
         }
+
         
         if(!empty(request('user_id'))){
 
             $allowancesArr = array();
             $deductionArr = array();
+            $oldEmpFinancialData = EmployeeFinancialDetail::where('user_id',request('user_id'))->first();
             if(!empty(request('allowances'))){
                 $allowancesArr[request('allowances')] = request('allowances_amount');
+            }elseif(!empty(@$oldEmpFinancialData->allowances)){
+                $allowancesArr = json_decode($oldEmpFinancialData->allowances,true);
             }
             if(!empty(request('deductions'))){
                 $deductionArr[request('deductions')] = request('deductions_amount');
+            }elseif(!empty(@$oldEmpFinancialData->deductions)){
+                $deductionArr = json_decode($oldEmpFinancialData->deductions,true);
             }
             
             $empFinancialData = EmployeeFinancialDetail::updateOrCreate([
@@ -238,7 +260,11 @@ class EmployeeControllers extends Controller
                             'branch' => (!empty(request('bank_name'))?request('branch'):''),
                             'ifsc_code' => (!empty(request('ifsc_code'))?request('ifsc_code'):''),
                         ]);
-            $this->checkAndUpdateEmpFormStep(request('user_id'), 3);
+
+            if(request('is_details_update') != 1){
+                $this->checkAndUpdateEmpFormStep(request('user_id'), 3);
+            }
+            
 
             return json_encode(array('code'=>'success','data'=>$empFinancialData));
 
